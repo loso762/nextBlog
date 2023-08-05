@@ -19,7 +19,7 @@ export async function getFeaturedPosts(): Promise<Post[]> {
     .then((posts) => posts.filter((post) => post.featured));
 }
 
-export async function getPost(fileName: string): Promise<PostData> {
+export async function getPostData(fileName: string): Promise<PostData> {
   const filePath = path.join(process.cwd(), "data", "posts", `${fileName}.md`);
   const metadata = await getAllPosts().then((posts) => posts.find((post) => post.path === fileName));
   if (!metadata) {
