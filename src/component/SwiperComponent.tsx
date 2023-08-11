@@ -7,7 +7,7 @@ import "swiper/css/pagination";
 import "swiper/css/virtual";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Post} from "@/service/posts";
-import {Autoplay, Navigation, Pagination, Virtual} from "swiper/modules";
+import {Autoplay, Navigation, Virtual} from "swiper/modules";
 
 type Props = {posts: Post[]};
 

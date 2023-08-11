@@ -1,15 +1,17 @@
-import MarkDownViewer from "@/components/MarkDownViewer";
+import AdjacentPostCard from "@/component/AdjacentPostCard";
+import PostContent from "@/component/PostContent";
 import {getPostData} from "@/service/posts";
 import Image from "next/image";
-import {AiTwotoneCalendar} from "react-icons/ai";
 
 type Props = {
   params: {
     slug: string;
   };
 };
+
 export default async function PostPage({params: {slug}}: Props) {
-  const {title, description, date, path, content} = await getPostData(slug);
+  const post = await getPostData(slug);
+  const {path, title, next, prev} = post;
 
   return (
     <article className="rounded-2xl overflow-hidden bg-gray-100 shadow-lg m-4">
@@ -20,15 +22,10 @@ export default async function PostPage({params: {slug}}: Props) {
         width={760}
         height={420}
       />
-      <section className="flex flex-col p-4 w-full">
-        <div className="flex items-center self-end text-sky-600">
-          <AiTwotoneCalendar />
-          <p className="font-semibold ml-2">{date.toString()}</p>
-        </div>
-        <h1 className="text-4xl font-bold">{title}</h1>
-        <p className="text-xl font-bold">{description}</p>
-        <div className="w-44 border-2 border-sky-600 mt-4 mb-8" />
-        <MarkDownViewer content={content} />
+      <PostContent post={post} />
+      <section className="w-4/5 flex m-auto justify-around">
+        {prev && <AdjacentPostCard post={prev} type="prev" />}
+        {next && <AdjacentPostCard post={next} type="next" />}
       </section>
     </article>
   );
